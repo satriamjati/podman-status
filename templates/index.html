@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Podman Metrics Viewer</title>
+  <style>
+    body { font-family: monospace; padding: 1em; background: #f5f5f5; }
+    #metrics { white-space: pre-wrap; background: #222; color: #eee; padding: 1em; border-radius: 6px; max-height: 80vh; overflow-y: scroll; }
+    button { margin-bottom: 1em; padding: 0.5em 1em; }
+  </style>
+</head>
+<body>
+
+<h1>Podman Metrics Viewer</h1>
+<button id="refreshBtn">Refresh Metrics</button>
+<div id="metrics">Loading...</div>
+
+<script>
+  const metricsDiv = document.getElementById('metrics');
+  const refreshBtn = document.getElementById('refreshBtn');
+
+  async function fetchMetrics() {
+    metricsDiv.textContent = 'Loading...';
+    try {
+      const response = await fetch('/containers/metrics');
+      const text = await response.text();
+      metricsDiv.textContent = text;
+    } catch (err) {
+      metricsDiv.textContent = 'Fetch error: ' + err.message;
+    }
+  }
+
+  refreshBtn.onclick = fetchMetrics;
+  fetchMetrics();
+</script>
+
+</body>
+</html>
