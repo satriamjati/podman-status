@@ -23,7 +23,7 @@ def proxy_metrics():
             auth=HTTPBasicAuth(USERNAME, PASSWORD),
             headers={"Accept": "text/plain"},
             verify=False,
-	    timeout=10
+	    timeout=30
         )
         return Response(resp.content, status=resp.status_code, content_type=resp.headers.get("Content-Type", "text/plain"))
     except Exception as e:

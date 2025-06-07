@@ -1,0 +1,14 @@
+[Unit]
+Description=Prometheus Podman Exporter
+After=network.target
+
+[Service]
+Restart=always
+ExecStart=/usr/local/bin/prometheus-podman-exporter \
+  --web.listen-address=127.0.0.0:9882 \
+  --web.config=/etc/prometheus-podman-exporter/web-config.yml
+
+WorkingDirectory=/etc/prometheus-podman-exporter
+
+[Install]
+WantedBy=default.target
